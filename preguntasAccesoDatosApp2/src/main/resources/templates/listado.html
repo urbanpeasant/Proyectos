@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Preguntas</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
+</head>
+
+<body>
+	<div class="container mt-4">
+		<h1>Listado de preguntas</h1>
+
+		<br>
+
+		<!-- Formulario de búsqueda -->
+		<form th:action="@{/preguntas}" method="get">
+			<div class="d-flex mb-3">
+				<input type="text" class="form-control" placeholder="Buscar..." name="texto"
+					style="flex-grow: 1; margin-right: 0.5rem;">
+				<button class="btn btn-primary" type="submit">Buscar</button>
+			</div>
+			<input type="hidden" name="page" value="0">
+			<input type="hidden" name="size" value="5">
+			<input type="hidden" name="isListado" value="true">
+		</form>
+
+		<!-- Listado de preguntas con sus botones correspondientes-->
+		<div th:each="pregunta : ${preguntas}" class="d-flex justify-content-between align-items-center mb-2">
+			<span class="flex-grow-1" th:text="${pregunta.texto}"></span>
+			<!-- Enlaces para editar y eliminar -->
+			<a class="btn btn-warning btn-sm mx-1" th:href="@{/preguntas/editar/} + ${pregunta.id}">Editar</a>
+			<a class="btn btn-danger btn-sm mx-1" th:href="@{/preguntas/eliminar/} + ${pregunta.id}"
+				onclick="return confirm('¿Estás seguro de querer eliminar esta pregunta?')">Eliminar</a>
+
+			<hr> <!-- Línea separadora entre cada pregunta -->
+		</div>
+
+		<br>
+		
+		<nav>
+			<ul class="pagination d-flex y justify-content-center">
+				<li class="page-item">
+					<a class="page-link" th:href="@{/preguntas(page=${paginaActual-1}, size=5, isListado=true)}"
+						aria-label="Previous" th:style="${esPrimeraPagina} ? 'pointer-events: none;' : ''">
+						<span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Anterior</span>
+					</a>
+				</li>
+
+				<li class="page-item"><a class="page-link" href="#"><span th:text="${paginaActual+1}"></span>/<span
+							th:text="${totalPaginas}"></span></a></li>
+
+				<li class="page-item">
+					<a class="page-link" th:href="@{/preguntas(page=${paginaActual+1}, size=5, isListado=true)}"
+						aria-label="Next" th:style="${esUltimaPagina} ? 'pointer-events: none;' : ''">
+						<span class="sr-only">Siguiente</span>
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		
+		<!-- Enlace para crear una nueva pregunta -->
+		<div class="mb-3 d-flex justify-content-between">
+			<a class="btn btn-primary" th:href="@{/preguntas/crear}">Crear Nueva Pregunta</a>
+			<a class="btn btn-primary" th:href="@{/}">Volver</a>
+		</div>
+	</div>
+</body>
+
+</html>

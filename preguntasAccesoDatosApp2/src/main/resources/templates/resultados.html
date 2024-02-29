@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        .respuesta-correcta {
+            color: #28a745; /* Color verde para respuestas correctas */
+        }
+        .respuesta-incorrecta {
+            color: #dc3545; /* Color rojo para respuestas incorrectas */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Resultados</h1>
+        <div th:each="pregunta : ${preguntas}" class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${pregunta.texto}">Texto de la pregunta</h5>
+                <p class="card-text">Respuesta seleccionada: 
+                    <span th:class="${respuestasSeleccionadas['respuestas[' + pregunta.id + ']'] == pregunta.respuesta} ? 'respuesta-correcta' : 'respuesta-incorrecta'"
+                          th:text="${respuestasSeleccionadas['respuestas[' + pregunta.id + ']']}"></span>
+                </p>
+                <p class="card-text">Respuesta correcta: <span class="respuesta-correcta" th:text="${pregunta.respuesta}">Respuesta correcta</span></p>
+                <th:block th:if="${respuestasSeleccionadas['respuestas[' + pregunta.id + ']'] == pregunta.respuesta}">
+                    <p class="text-success"><i class="bi bi-check-circle-fill"></i> Correcto</p>
+                </th:block>
+                <th:block th:if="${respuestasSeleccionadas['respuestas[' + pregunta.id + ']'] != pregunta.respuesta}">
+                    <p class="text-danger"><i class="bi bi-x-circle-fill"></i> Incorrecto</p>
+                </th:block>
+            </div>
+        </div>
+        <div class="text-center">
+            <a th:href="@{/}" class="btn btn-primary">Volver a Home</a>
+        </div>
+    </div>
+    <!-- Bootstrap Icons CDN (asegúrate de que esta URL está actualizada) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css">
+</body>
+</html>
