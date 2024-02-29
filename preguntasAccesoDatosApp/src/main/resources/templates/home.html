@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"> <!-- Asegúrate de que la ruta sea correcta -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- Tus estilos personalizados pueden ir aquí -->
+</head>
+
+<body>
+    <div class="container text-center mt-5">
+        <h1 class="mb-4">Bienvenido a Tests From Hell</h1>
+        <img th:src="@{${imagenRandom}}" alt="Imagen Aleatoria" class="img-fluid rounded mb-4">
+        <div class="mb-3 d-flex justify-content-around">
+            <a th:href="@{/preguntas?page=0&size=5&isListado=true}" class="btn btn-primary">Listado de preguntas</a>
+            <a th:href="@{/preguntas?page=0&size=5}" class="btn btn-primary">Comenzar el Test</a>
+        </div>
+    </div>
+</body>
+
+</html>

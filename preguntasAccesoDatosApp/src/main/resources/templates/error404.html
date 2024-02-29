@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Error 404 - Página No Encontrada</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"> <!-- Asegúrate de que la ruta sea correcta -->
+</head>
+
+<body>
+    <div class="container text-center mt-5">
+        <h1 class="display-1">Error 404</h1>
+        <p class="lead">Lo sentimos, la página no está disponible. Comprueba que esté bien escrita. No descartes que ni siquiera esté programada. Si tienes alguna duda pregúntale a Javi que yo no se nada ya :(</p>
+        <a th:href="@{/}" class="btn btn-primary">Volver a Home</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Pregunta</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"> <!-- Asegúrate de que la ruta sea correcta -->
+</head>
+
+<body>
+    <div class="container my-4">
+        <h1>Crear Nueva Pregunta</h1>
+        <form th:action="@{/preguntas/crear}" th:object="${pregunta}" method="post" class="mt-3">
+            <div class="mb-3">
+                <label for="textoPregunta" class="form-label">Texto de la pregunta:</label>
+                <input type="text" class="form-control" id="textoPregunta" th:field="*{texto}">
+            </div>
+            <div class="mb-3">
+                <label for="tipoPregunta" class="form-label">Tipo (VF/SC):</label>
+                <input type="text" class="form-control" id="tipoPregunta" th:field="*{tipo}">
+            </div>
+            <div class="mb-3">
+                <label for="respuestaCorrecta" class="form-label">Respuesta correcta:</label>
+                <input type="text" class="form-control" id="respuestaCorrecta" th:field="*{respuesta}">
+            </div>
+            <div class="mb-3">
+                <label for="opcionesPregunta" class="form-label">Opciones (separadas por '|'):</label>
+                <input type="text" class="form-control" id="opcionesPregunta" th:field="*{opciones}">
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        <a th:href="@{/preguntas?page=0&size=5&isListado=true}" class="btn btn-link">Volver al listado</a>
+    </div>
+</body>
+
+</html>

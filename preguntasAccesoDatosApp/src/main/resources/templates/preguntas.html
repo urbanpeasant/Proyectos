@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Preguntas</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"> <!-- Asegúrate de que la ruta sea correcta -->
+</head>
+
+<body>
+	<div class="container mt-4">
+		<form th:action="@{/guardarRespuestas}" method="post">
+			<h1>Responde las preguntas</h1>
+			<br>
+			<div th:each="pregunta : ${preguntas}" class="mb-3">
+				<p th:text="${pregunta.texto}"></p>
+				<th:block th:if="${pregunta.tipo == 'VF'}">
+					<div class="form-check">
+						<input class="form-check-input" type="radio"
+							th:id="'respuesta_' + ${pregunta.id} + '_verdadero'"
+							th:name="'respuestas[' + ${pregunta.id} + ']'" value="Verdadero">
+						<label class="form-check-label"
+							th:for="'respuesta_' + ${pregunta.id} + '_verdadero'">Verdadero</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" th:id="'respuesta_' + ${pregunta.id} + '_falso'"
+							th:name="'respuestas[' + ${pregunta.id} + ']'" value="Falso">
+						<label class="form-check-label" th:for="'respuesta_' + ${pregunta.id} + '_falso'">Falso</label>
+					</div>
+				</th:block>
+				<th:block th:if="${pregunta.tipo == 'SC'}">
+					<select class="form-select" th:id="'respuesta_' + ${pregunta.id}"
+						th:name="'respuestas[' + ${pregunta.id} + ']'">
+						<option th:each="opcion : ${#strings.arraySplit(pregunta.opciones, '|')}" th:value="${opcion}"
+							th:text="${opcion}"></option>
+					</select>
+				</th:block>
+
+				<!-- Enlaces para editar y eliminar -->
+				<!--
+                <div class="mt-2">
+                    <a class="btn btn-warning btn-sm" th:href="@{/preguntas/editar/} + ${pregunta.id}">Editar</a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/preguntas/eliminar/} + ${pregunta.id}"
+                       onclick="return confirm('¿Estás seguro de querer eliminar esta pregunta?')">Eliminar</a>
+                </div>
+                -->
+
+				<hr> <!-- Línea separadora entre cada pregunta -->
+			</div>
+
+			<input type="hidden" name="paginaActual" th:value="${paginaActual}">
+			<input type="hidden" name="tamanoPagina" th:value="${tamanoPagina}">
+			<!-- Enlace para crear una nueva pregunta -->
+			<!--
+            <div class="mb-3">
+                <a class="btn btn-success" th:href="@{/preguntas/crear}">Crear Nueva Pregunta</a>
+            </div>
+            -->
+			<div class="mb-3 d-flex justify-content-between">
+				<button type="submit" class="btn btn-primary"
+					th:text="${esUltimaPagina} ? 'Enviar respuestas' : 'Guardar y siguiente página'"></button>
+				<a class="btn btn-primary" th:href="@{/}">Volver</a>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>
